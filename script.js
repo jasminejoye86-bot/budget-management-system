@@ -32,6 +32,21 @@
 //     document.getElementById("remaining").value = newRemaining;
 //     document.getElementById("balance").value = newRemaining;
 // }
+function submitForm(event) {
+    event.preventDefault();
+    const subject = document.getElementById("subject").value;
+    const amount = parseFloat(document.getElementById("amount").value) || 0;
+    const balance = document.getElementById("balance").value;
+    const budget = document.getElementById("budget").value;
+    const table = document.getElementById("viewtable").querySelector("tbody");
+    const row = table.insertRow();
+    row.insertCell(0).innerText = subject;
+    row.insertCell(1).innerText = budget;
+    row.insertCell(2).innerText = amount;
+    row.insertCell(3).innerText = balance;
+    row.insertCell(4).innerHTML = `<button class="btn btn-primary" onclick="deleteBtn(this)">Delete</button>`;
+
+}
 function select() {
     const AmountOfBudgets = {
         "Tuition Fees": 5000,
@@ -47,4 +62,17 @@ function select() {
         document.getElementById("budgetamt").value = AmountOfBudgets[selectedText];
         document.getElementById("remaining").value = AmountOfBudgets[selectedText];
     }
+}
+function updateBalance() {
+    let amount = parseFloat(document.getElementById("amount").value) || 0;
+    let remaining = document.getElementById("remaining").value;
+    let newRemainingAmount = remaining - amount;
+    remaining.value = newRemainingAmount;
+    let balance = document.getElementById("balance");
+    balance.value = newRemainingAmount;
+}
+function deleteBtn(btn) {
+    console.log(btn.parentNode.parentNode)
+    row = btn.parentNode.parentNode;
+    row.remove();
 }
